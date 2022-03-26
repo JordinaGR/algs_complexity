@@ -8,17 +8,16 @@ const int INF = 1 << 30;
 using ll = long long;
 using VI = vector<int>;
 
-VI n1(11); VI n3(1e3+1); VI n4(1e4+1); VI n6(1e6+1); VI n9(1e9+1);
+VI n1(11); VI n3(1e3+1); VI n4(1e4+1); VI n5(1e5+1);
 map<string, vector<int>> vmap;
-vector<string> name_v = {"n1", "n3", "n4", "n6", "n9"};
-int number_vectors = 4;
+vector<string> name_v = {"n1", "n3", "n4", "n5"};
+int number_vectors = 3;
 
 void create_vectors(){
     vmap["n1"] = n1;
     vmap["n3"] = n3;
     vmap["n4"] = n4;
-    vmap["n6"] = n6;
-    vmap["n9"] = n9;
+    vmap["n5"] = n5;
 
     for (int i = 0; i < number_vectors; i++){
         vector<int> x = vmap[name_v[i]];
@@ -33,9 +32,9 @@ void swap(int *a, int *b){
     *b = tmp;
 }
 void bubble_sort(){
-    ofstream bubble; bubble.open("bubble_sort.csv");
+    vector<ll> times(number_vectors);
+    ofstream bubble; bubble.open("/home/jordina/Desktop/new_programming/algs_complexity/db/bubble_sort.csv", std::ios::app);
     for (int k = 0; k < number_vectors; k++){
-        cout << "here " << k << endl;
         vector<int> data = vmap[name_v[k]];
 
         auto start = high_resolution_clock::now(); 
@@ -48,21 +47,22 @@ void bubble_sort(){
         }
         auto stop = high_resolution_clock::now();
         auto duration = duration_cast<microseconds>(stop-start);
-
-        bubble << name_v[k] << "," << duration.count() << endl;
-        vmap[name_v[k]] = data;
-
+        times[k] = duration.count();
+        //bubble << name_v[k] << "," << duration.count() << endl;
+        //vmap[name_v[k]] = data;
     }
+    for (auto x : times){
+        bubble << x << ",";
+    } bubble << endl;
+    bubble.close();
 }
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
     //data.csv contindrà les mitjanes aritmètiques de tots els algs amb les mateixes n's
-
-
-    create_vectors();
-    bubble_sort();
-
-    
+    for (int i = 0; i < 20; i++){
+        create_vectors();
+        bubble_sort();        
+    }
 }
