@@ -8,18 +8,23 @@ const int INF = 1 << 30;
 using ll = long long;
 using VI = vector<int>;
 
-VI n1(11); VI n3(1e3+1); VI n4(1e4+1); VI n5(1e5+1);
+VI n1(11); VI n2(1e2+1); VI n3(1e3+1); VI n4(1e4+1); VI n40000(40001); VI n60000(60001); VI n80000(80001); VI n5(1e5+1);
 map<string, vector<int>> vmap;
-vector<string> name_v = {"n1", "n3", "n4", "n5"};
-int number_vectors = 3;
+vector<string> name_v = {"n1", "n2", "n3", "n4", "n40000", "n60000", "n80000", "n5"};
+int number_vectors = 8;
+int start_vectors = 7;
 
 void create_vectors(){
     vmap["n1"] = n1;
+    vmap["n2"] = n2;
     vmap["n3"] = n3;
     vmap["n4"] = n4;
+    vmap["n40000"] = n40000;
+    vmap["n60000"] = n60000;
+    vmap["n80000"] = n80000;
     vmap["n5"] = n5;
 
-    for (int i = 0; i < number_vectors; i++){
+    for (int i = start_vectors; i < number_vectors; i++){
         vector<int> x = vmap[name_v[i]];
         iota(x.begin(), x.end(), 0);
         shuffle(x.begin(), x.end(), random_device());
@@ -34,7 +39,7 @@ void swap(int *a, int *b){
 void bubble_sort(){
     vector<ll> times(number_vectors);
     ofstream bubble; bubble.open("/home/jordina/Desktop/new_programming/algs_complexity/db/bubble_sort.csv", std::ios::app);
-    for (int k = 0; k < number_vectors; k++){
+    for (int k = start_vectors; k < number_vectors; k++){
         vector<int> data = vmap[name_v[k]];
 
         auto start = high_resolution_clock::now(); 
