@@ -20,7 +20,6 @@ double bubble_sort(vector<int> data){
         }
     }
     auto stop = high_resolution_clock::now();
-    //auto d = duration_cast<microseconds>(stop-start);
     std::chrono::duration<double> diff = stop-start;
     return diff.count();
 }
@@ -37,7 +36,7 @@ int main(){
 
     if (alg == "b"){
         ofstream bubble; bubble.open("/home/jordina/Desktop/new_programming/algs_complexity/v2/bubble.csv", std::ofstream::out | std::ofstream::app);
-        vector<int> nVector = {10, 1000, 20000, 40000, 60000};
+        vector<int> nVector = {10, 2000, 30000, 50000, 70000, 80000};
 
         int timesPV = 1;
         for (int i = 0; i < nVector.size(); i++){
