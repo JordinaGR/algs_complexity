@@ -11,7 +11,9 @@ dfm = dfm.groupby('Num1').mean().reset_index()
 
 ax = dfb.plot(x='Num', y='Ordenament bombolla', linewidth=2)
 dfm.plot(ax=ax, x='Num1', y='Ordenament per barreja', linewidth=2)
+ax.ticklabel_format(useOffset=False, style='plain')
 
+#dfm.plot(x='Num1', y='Ordenament per barreja', linewidth=2)
 
 plt.title("Complexitat Temporal dels Algoritmes")
 plt.xlabel("Quantitat de dades")
