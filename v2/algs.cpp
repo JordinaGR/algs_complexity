@@ -85,8 +85,22 @@ int main(){
             }
         }
 
-    } else if (alg == "q") {
-        return 0;
+    } else if (alg == "c") {
+        ofstream cppalg; cppalg.open("/home/jordina/Desktop/new_programming/algs_complexity/v2/cppalg.csv", std::ofstream::out | std::ofstream::app);
+        vector<int> nVector = {10, 1000, 20000, 40000, 60000, 80000, 100000, 500000, 1000000, 10000000};
+        int timesPV = 3;
+
+        for (int i = 0; i < nVector.size(); i++){
+            for (int j = 0; j < timesPV; j++){
+                vector<int> tmpV = createVector(nVector[i]);
+                auto start = high_resolution_clock::now(); 
+                sort(tmpV.begin(), tmpV.end());
+                auto stop = high_resolution_clock::now();
+                std::chrono::duration<double> diff = stop-start;
+
+                cppalg << nVector[i] << ',' << diff.count() << endl;
+            }
+        }
     } else if (alg == "m"){
         ofstream merge; merge.open("/home/jordina/Desktop/new_programming/algs_complexity/v2/merge.csv", std::ofstream::out | std::ofstream::app);
         vector<int> nVector = {5000000};
@@ -103,6 +117,26 @@ int main(){
                 std::chrono::duration<double> diff = stop-start;
 
                 merge << nVector[i] << ',' << diff.count() << endl;
+            }
+        }
+    } else if(alg == "l"){
+        ofstream linear; linear.open("/home/jordina/Desktop/new_programming/algs_complexity/v2/linear.csv", std::ofstream::out | std::ofstream::app);
+        vector<int> nVector = {100000, 1000000, 1000000, 50000000, 100000000};
+        int timesPV = 3;
+
+        for (int i = 0; i < nVector.size(); i++){
+            for (int j = 0; j < timesPV; j++){
+                vector<int> tmpV = createVector(nVector[i]);
+                auto start = high_resolution_clock::now(); 
+
+                for (int k = 0; k < tmpV.size(); k++){
+                    int x = tmpV[k];
+                }
+
+                auto stop = high_resolution_clock::now();
+                std::chrono::duration<double> diff = stop-start;
+
+                linear << nVector[i] << ',' << diff.count() << endl;
             }
         }
     }
