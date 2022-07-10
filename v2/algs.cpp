@@ -28,6 +28,11 @@ vector<int> createVector(int n){
     shuffle(vec.begin(), vec.end(), random_device());
     return vec;
 }
+vector<int> createOrderedVector(int n){
+    vector<int> vec(n);
+    iota(vec.begin(), vec.end(), 0);
+    return vec;
+}
 void mergeSort(int *array, int l, int m, int r){
     int i, j, k, nl, nr;
     nl = m-l+1; nr = r-m;
@@ -69,6 +74,7 @@ void merge_sort(int *array, int l, int r){
     }
 }
 int main(){
+    srand (time(NULL));
     string alg; cin >> alg;
     
     if (alg == "b"){
@@ -81,26 +87,9 @@ int main(){
                 vector<int> tmpV = createVector(nVector[i]);
                 double timee = bubble_sort(tmpV);
                 bubble << nVector[i] << ',' << timee << endl;
-
             }
         }
 
-    } else if (alg == "c") {
-        ofstream cppalg; cppalg.open("/home/jordina/Desktop/new_programming/algs_complexity/v2/cppalg.csv", std::ofstream::out | std::ofstream::app);
-        vector<int> nVector = {10, 1000, 20000, 40000, 60000, 80000, 100000, 500000, 1000000, 10000000};
-        int timesPV = 3;
-
-        for (int i = 0; i < nVector.size(); i++){
-            for (int j = 0; j < timesPV; j++){
-                vector<int> tmpV = createVector(nVector[i]);
-                auto start = high_resolution_clock::now(); 
-                sort(tmpV.begin(), tmpV.end());
-                auto stop = high_resolution_clock::now();
-                std::chrono::duration<double> diff = stop-start;
-
-                cppalg << nVector[i] << ',' << diff.count() << endl;
-            }
-        }
     } else if (alg == "m"){
         ofstream merge; merge.open("/home/jordina/Desktop/new_programming/algs_complexity/v2/merge.csv", std::ofstream::out | std::ofstream::app);
         vector<int> nVector = {5000000};
@@ -121,22 +110,51 @@ int main(){
         }
     } else if(alg == "l"){
         ofstream linear; linear.open("/home/jordina/Desktop/new_programming/algs_complexity/v2/linear.csv", std::ofstream::out | std::ofstream::app);
-        vector<int> nVector = {100000, 1000000, 1000000, 50000000, 100000000};
-        int timesPV = 3;
+        vector<int> nVector = {10}; //100, 1000, 10000, 100000, 1000000, 1000000
+        int timesPV = 1;
 
         for (int i = 0; i < nVector.size(); i++){
             for (int j = 0; j < timesPV; j++){
                 vector<int> tmpV = createVector(nVector[i]);
-                auto start = high_resolution_clock::now(); 
+                int k = rand() % nVector[i];
+                int index = -1;
 
-                for (int k = 0; k < tmpV.size(); k++){
-                    int x = tmpV[k];
+                auto start = high_resolution_clock::now();
+                for (int q = 0; q < tmpV.size(); q++){
+                    if (tmpV[q] == k) {index = q; break;}
+                }
+                auto stop = high_resolution_clock::now();
+                std::chrono::duration<double> diff = stop-start;
+                linear << nVector[i] << ',' << diff.count() << endl;
+                
+            }
+        }
+    } else if(alg == "y"){
+        ofstream binary; binary.open("/home/jordina/Desktop/new_programming/algs_complexity/v2/binary.csv", std::ofstream::out | std::ofstream::app);
+        vector<int> nVector = {1000000000, 105000000, 150000000, 200000000}; //100, 1000, 10000, 100000, 1000000, 1000000
+        int timesPV = 5;
+
+        for (int i = 0; i < nVector.size(); i++){
+            for (int j = 0; j < timesPV; j++){
+                vector<int> tmpV = createOrderedVector(nVector[i]);
+                int k = rand() % nVector[i];
+                int index = -1;
+
+                auto start = high_resolution_clock::now();
+
+                int left = 0; int right = nVector[i]-1;
+
+                while (left <= right){
+                    int mid = (left+right) / 2;
+
+                    if (tmpV[mid] == k) {index = mid; break;}
+                    if (tmpV[mid] > k) {right = mid-1;}
+                    if (tmpV[mid] < k) {left = mid+1;} 
                 }
 
                 auto stop = high_resolution_clock::now();
                 std::chrono::duration<double> diff = stop-start;
-
-                linear << nVector[i] << ',' << diff.count() << endl;
+                binary << nVector[i] << ',' << diff.count() << endl;
             }
         }
     }
@@ -144,3 +162,4 @@ int main(){
 }
 
 // vector<int> nVector = {10, 1000, 20000, 40000, 60000, 80000, 10000};
+//10, 100, 1000, 10000, 100000, 1000000, 1000000, 5000000, 10000000, 50000000, 100000000, 500000000

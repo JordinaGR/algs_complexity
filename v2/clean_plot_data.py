@@ -13,15 +13,20 @@ dfl = pd.read_csv('linear.csv')
 dfl = dfl.sort_values('Num2')
 dfl = dfl.groupby('Num2').mean().reset_index()
 
+dfy = pd.read_csv('binary.csv')
+dfy = dfy.sort_values('Num3')
+dfy = dfy.groupby('Num3').mean().reset_index()
+
 # ax.ticklabel_format(useOffset=False, style='plain')
 # ax = dfb.plot(x='Num', y='Ordenament bombolla', linewidth=2)
 # dfm.plot(ax=ax, x='Num1', y='Ordenament per barreja', linewidth=2)
 # dfl.plot(ax=ax, x='Num2', y='Linear', linewidth=2)
 
-ax = dfm.plot(x='Num1', y='Ordenament per barreja', linewidth=2)
-dfl.plot(ax=ax, x='Num2', y='Linear', linewidth=2)
-ax.ticklabel_format(useOffset=False, style='plain')
+# ax = dfm.plot(x='Num1', y='Ordenament per barreja', linewidth=2)
+# dfl.plot(ax=ax, x='Num2', y='Linear', linewidth=2)
+# ax.ticklabel_format(useOffset=False, style='plain')
 
+dfy.plot(x='Num3', y='Binary', linewidth=2)
 
 #dfm.plot(x='Num1', y='Ordenament per barreja', linewidth=2)
 
